@@ -11,6 +11,8 @@ class _EchoNoteState extends State<EchoNote> {
   bool _showicon = false;
   bool _showfab = true;
 
+
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
