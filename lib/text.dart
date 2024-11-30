@@ -11,9 +11,7 @@ class _TextExampleState extends State<TextExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [Text("First")],
-      ),
+      body: Center(child: Text("Page")),
     );
   }
 }
