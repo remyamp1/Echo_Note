@@ -8,6 +8,8 @@ class TaskExample extends StatefulWidget {
 }
 
 class _TaskExampleState extends State<TaskExample> {
+  TextEditingController titlecontroller = TextEditingController();
+  TextEditingController descriptioncontroller = TextEditingController();
   final DateTime dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,9 @@ class _TaskExampleState extends State<TaskExample> {
             children: [
               SizedBox(height: 10),
               TextField(
+                controller: titlecontroller,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: new BorderSide(color: Colors.green)),
+                    border: OutlineInputBorder(),
                     label: Text(
                       "Title",
                       style: TextStyle(color: Colors.green),
@@ -45,12 +47,15 @@ class _TaskExampleState extends State<TaskExample> {
               ),
               SizedBox(height: 20),
               TextField(
+                controller: descriptioncontroller,
+                maxLines: 20,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text(
                       "Description",
                       style: TextStyle(color: Colors.green),
                     ),
+                    alignLabelWithHint: true,
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green))),
               ),
@@ -60,7 +65,7 @@ class _TaskExampleState extends State<TaskExample> {
               Row(
                 children: [
                   Text(
-                    "${dateTime.day.toString()}/${dateTime.month.toString()}/${dateTime.year.toString()}",
+                    "${dateTime.day.toString()}-${dateTime.month.toString()}-${dateTime.year.toString()}",
                     style: TextStyle(color: Colors.green),
                   ),
                   Spacer(),
