@@ -30,13 +30,19 @@ class AppwriteService {
     }
   }
 
-  Future<Document> addTask(String Title, String Description) async {
+  Future<Document> addTask(
+      String Title, String Description, String Date, String Time) async {
     try {
       final documentId = ID.unique();
       final result = await databases.createDocument(
         databaseId: databaseId,
         collectionId: collectionId,
-        data: {'Title': Title, 'Description': Description},
+        data: {
+          'Title': Title,
+          'Description': Description,
+          'Date': Date,
+          'Time': Time
+        },
         documentId: documentId,
       );
       return result;
