@@ -1,3 +1,5 @@
+import 'package:echo_note/appwrite_model.dart';
+import 'package:echo_note/appwrite_service.dart';
 import 'package:flutter/material.dart';
 
 class TextExample extends StatefulWidget {
@@ -8,8 +10,51 @@ class TextExample extends StatefulWidget {
 }
 
 class _TextExampleState extends State<TextExample> {
+  late AppwriteService _appwriteService;
+  late List<Texts> _text;
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController contentcontroller = TextEditingController();
+
+  final DateTime dateTime = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _appwriteService = AppwriteService();
+    _text = [];
+  }
+
+  Future<void> _loadtext() async {
+    try {
+      final tasks = await _appwriteService.getTasks();
+      setState(() {
+        _text = tasks.map((e) => Texts.fromDocument(e)).toList();
+      });
+    } catch (e) {
+      print("Title is empty");
+    }
+  }
+
+  Future<void> _addtext() async {
+    final Title = titlecontroller.text;
+    final Description = contentcontroller.text;
+
+    String date = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
+    String time = "${dateTime.hour}/${dateTime.minute}";
+
+    if (Title.isNotEmpty && Description.isNotEmpty) {
+      try {
+        await _appwriteService.addText(Title, Description, date, time);
+        titlecontroller.clear();
+        contentcontroller.clear();
+
+        _loadtext();
+      } catch (e) {
+        print("Error adding task:$e");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +66,7 @@ class _TextExampleState extends State<TextExample> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: _addtext,
                 icon: Icon(
                   Icons.check,
                   color: Colors.white,

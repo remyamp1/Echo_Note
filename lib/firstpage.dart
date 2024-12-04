@@ -2,6 +2,7 @@ import 'package:echo_note/list.dart';
 import 'package:echo_note/task.dart';
 import 'package:echo_note/task_screen.dart';
 import 'package:echo_note/text.dart';
+import 'package:echo_note/text_screen.dart';
 import 'package:flutter/material.dart';
 
 class EchoNote extends StatefulWidget {
@@ -38,7 +39,8 @@ class _EchoNoteState extends State<EchoNote> {
             },
           ),
         ),
-        SizedBox(height: 20), // Add spacing between containers
+        SizedBox(height: 20), 
+        
         Container(
           height: 45,
           width: 45,
@@ -55,7 +57,8 @@ class _EchoNoteState extends State<EchoNote> {
             },
           ),
         ),
-        SizedBox(height: 20), // Add spacing between containers
+        SizedBox(height: 20), 
+        
         Container(
           height: 55,
           width: 55,
@@ -105,13 +108,13 @@ class _EchoNoteState extends State<EchoNote> {
                 : null,
             body: Stack(children: <Widget>[
               TabBarView(children: [
-                Center(child: Text("Text Screen")),
+                TextScreen(),
                 Center(child: Text("List Screen")),
                 TaskScreen(),
               ]),
               if (_showicon)
                 Positioned(
-                  bottom: 80, // Adjust position above FAB
+                  bottom: 80, 
                   right: 15,
                   child: showIcons(),
                 ),

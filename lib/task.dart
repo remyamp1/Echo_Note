@@ -1,5 +1,6 @@
 import 'package:echo_note/appwrite_model.dart';
 import 'package:echo_note/appwrite_service.dart';
+import 'package:echo_note/task_screen.dart';
 import 'package:flutter/material.dart';
 
 class TaskExample extends StatefulWidget {
@@ -37,8 +38,9 @@ class _TaskExampleState extends State<TaskExample> {
   Future<void> _addtask() async {
     final Title = titlecontroller.text;
     final Description = descriptioncontroller.text;
-    String date = "{${dateTime.day}/${dateTime.month}/${dateTime.year}}";
-    String time = "{${dateTime.hour}/${dateTime.minute}}";
+
+    String date = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
+    String time = "${dateTime.hour}/${dateTime.minute}";
 
     if (Title.isNotEmpty && Description.isNotEmpty) {
       try {
@@ -63,12 +65,18 @@ class _TaskExampleState extends State<TaskExample> {
             style: TextStyle(color: Colors.white),
           ),
           actions: [
-            IconButton(
-                onPressed: _addtask,
-                icon: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ))
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TaskScreen()));
+              },
+              child: IconButton(
+                  onPressed: _addtask,
+                  icon: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  )),
+            )
           ],
         ),
         body: Padding(
