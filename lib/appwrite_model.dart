@@ -18,10 +18,10 @@ class Task {
   factory Task.fromDocument(Document doc) {
     return Task(
         id: doc.$id,
-        Title: doc.data["Title"],
-        Description: doc.data['Description'],
-        Date: doc.data['Date'],
-        Time: doc.data['Time']);
+        Title: doc.data["Title"] ?? '',
+        Description: doc.data['Description'] ?? '',
+        Date: doc.data['Date'] ?? '',
+        Time: doc.data['Time'] ?? '');
   }
 }
 
@@ -43,9 +43,34 @@ class Texts {
   factory Texts.fromDocument(Document doc) {
     return Texts(
         id: doc.$id,
-        Title: doc.data["Title"],
-        Content: doc.data['Content'],
-        Date: doc.data['Date'],
-        Time: doc.data['Time']);
+        Title: doc.data["Title"] ?? '',
+        Content: doc.data['Content'] ?? '',
+        Date: doc.data['Date'] ?? '',
+        Time: doc.data['Time'] ?? '');
+  }
+}
+
+class Addlist {
+  final String id;
+  final String Title;
+  final String List;
+  final String Date;
+  final String Time;
+
+  Addlist({
+    required this.id,
+    required this.Title,
+    required this.List,
+    required this.Date,
+    required this.Time,
+  });
+
+  factory Addlist.fromDocument(Document doc) {
+    return Addlist(
+        id: doc.$id,
+        Title: doc.data["Title"] ?? '',
+        List: doc.data['List'] ?? '',
+        Date: doc.data['Date'] ?? '',
+        Time: doc.data['Time'] ?? '');
   }
 }

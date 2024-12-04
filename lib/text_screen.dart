@@ -24,7 +24,7 @@ class _TaskScreenState extends State<TextScreen> {
 
   Future<void> _loadtext() async {
     try {
-      final tasks = await _appwriteService.getTasks();
+      final tasks = await _appwriteService.getTexts();
       setState(() {
         _text = tasks.map((e) => Texts.fromDocument(e)).toList();
       });
@@ -48,23 +48,23 @@ class _TaskScreenState extends State<TextScreen> {
                       mainAxisSpacing: 7),
                   itemCount: _text.length,
                   itemBuilder: (context, index) {
-                    final tasks = _text[index];
+                    final texts = _text[index];
                     return Container(
                       height: 30,
                       width: 70,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: Colors.red),
+                          color: const Color.fromARGB(255, 231, 162, 243)),
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(tasks.Title),
-                            Text(tasks.Content),
-                            Text(tasks.Date),
-                            Text(tasks.Time),
+                            Text(texts.Title),
+                            Text(texts.Content),
+                            Text(texts.Date),
+                            Text(texts.Time),
                           ],
                         ),
                       ),

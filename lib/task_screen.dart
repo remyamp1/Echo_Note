@@ -54,17 +54,23 @@ class _TaskScreenState extends State<TaskScreen> {
                       width: 70,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: Colors.red),
+                          color: const Color.fromARGB(255, 250, 234, 87)),
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(tasks.Title),
-                           Text(tasks.Description),
+                            Row(
+                              children: [
+                                Text(tasks.Title),
+                                Spacer(),
+                                Icon(Icons.more_vert_outlined)
+                              ],
+                            ),
+                            Text(tasks.Description),
                             Text(tasks.Date),
-                             Text(tasks.Time),
+                            Text(tasks.Time),
                           ],
                         ),
                       ),

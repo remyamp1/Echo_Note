@@ -1,5 +1,6 @@
 import 'package:echo_note/appwrite_model.dart';
 import 'package:echo_note/appwrite_service.dart';
+import 'package:echo_note/text_screen.dart';
 import 'package:flutter/material.dart';
 
 class TextExample extends StatefulWidget {
@@ -65,12 +66,18 @@ class _TextExampleState extends State<TextExample> {
             style: TextStyle(color: Colors.white),
           ),
           actions: [
-            IconButton(
-                onPressed: _addtext,
-                icon: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ))
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TextScreen()));
+              },
+              child: IconButton(
+                  onPressed: _addtext,
+                  icon: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  )),
+            )
           ],
         ),
         body: Padding(
