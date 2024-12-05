@@ -123,13 +123,18 @@ class AppwriteService {
   }
 
   Future<Document> addLists(
-      String Title, String List, String Date, String Time) async {
+    String Title,
+    String List,
+  ) async {
     try {
       final documentId = ID.unique();
       final result = await databases.createDocument(
         databaseId: databaseId,
         collectionId: listcollectionId,
-        data: {'Title': Title, 'List': List, 'Date': Date, 'Time': Time},
+        data: {
+          'Title': Title,
+          'List': List,
+        },
         documentId: documentId,
       );
       return result;

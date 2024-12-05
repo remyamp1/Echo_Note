@@ -54,23 +54,18 @@ class Addlist {
   final String id;
   final String Title;
   final String List;
-  final String Date;
-  final String Time;
 
   Addlist({
     required this.id,
     required this.Title,
     required this.List,
-    required this.Date,
-    required this.Time,
   });
 
   factory Addlist.fromDocument(Document doc) {
     return Addlist(
-        id: doc.$id,
-        Title: doc.data["Title"] ?? '',
-        List: doc.data['List'] ?? '',
-        Date: doc.data['Date'] ?? '',
-        Time: doc.data['Time'] ?? '');
+      id: doc.$id,
+      Title: doc.data["Title"] ?? '',
+      List: doc.data['List'] ?? '',
+    );
   }
 }

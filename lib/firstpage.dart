@@ -1,4 +1,5 @@
 import 'package:echo_note/list.dart';
+import 'package:echo_note/list_screen.dart';
 import 'package:echo_note/task.dart';
 import 'package:echo_note/task_screen.dart';
 import 'package:echo_note/text.dart';
@@ -39,8 +40,7 @@ class _EchoNoteState extends State<EchoNote> {
             },
           ),
         ),
-        SizedBox(height: 20), 
-        
+        SizedBox(height: 20),
         Container(
           height: 45,
           width: 45,
@@ -57,8 +57,7 @@ class _EchoNoteState extends State<EchoNote> {
             },
           ),
         ),
-        SizedBox(height: 20), 
-        
+        SizedBox(height: 20),
         Container(
           height: 55,
           width: 55,
@@ -109,12 +108,12 @@ class _EchoNoteState extends State<EchoNote> {
             body: Stack(children: <Widget>[
               TabBarView(children: [
                 TextScreen(),
-                Center(child: Text("List Screen")),
+                ListScreen(),
                 TaskScreen(),
               ]),
               if (_showicon)
                 Positioned(
-                  bottom: 80, 
+                  bottom: 80,
                   right: 15,
                   child: showIcons(),
                 ),

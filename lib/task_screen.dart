@@ -1,3 +1,4 @@
+import 'package:echo_note/Edit_task.dart';
 import 'package:echo_note/appwrite_model.dart';
 import 'package:echo_note/appwrite_service.dart';
 import 'package:flutter/material.dart';
@@ -64,13 +65,35 @@ class _TaskScreenState extends State<TaskScreen> {
                             Row(
                               children: [
                                 Text(tasks.Title),
-                                Spacer(),
-                                Icon(Icons.more_vert_outlined)
                               ],
                             ),
                             Text(tasks.Description),
                             Text(tasks.Date),
                             Text(tasks.Time),
+                            Row(
+                              children: [
+                                Text("Task ended"),
+                                Spacer(),
+                                PopupMenuButton<String>(
+                                    onSelected: (value) {
+                                      if (value == 'Edit') {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditTask()));
+                                      } else if (value == 'Delete') {}
+                                    },
+                                    itemBuilder: (context) => [
+                                          PopupMenuItem(
+                                              value: 'Edit',
+                                              child: Text("Edit")),
+                                          PopupMenuItem(
+                                              value: 'Delete',
+                                              child: Text("Delete")),
+                                        ])
+                              ],
+                            )
                           ],
                         ),
                       ),

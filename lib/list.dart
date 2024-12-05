@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/internal_patch.dart';
-
 import 'package:echo_note/appwrite_model.dart';
 import 'package:echo_note/appwrite_service.dart';
 import 'package:flutter/material.dart';
@@ -12,25 +10,39 @@ class ListExample extends StatefulWidget {
 }
 
 class _ListExampleState extends State<ListExample> {
+  late AppwriteService _appwriteService;
+  late List<Addlist> _lists;
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController listcontroller = TextEditingController();
-  late AppwriteService _appwriteService;
-  late List<Addlist> _list;
+  late List<String> add = [];
 
-  final DateTime dateTime = DateTime.now();
+  void netlist() {
+    setState(() {
+      if (listcontroller.text.isNotEmpty) {
+        add.add(listcontroller.text);
+        listcontroller.clear();
+      }
+    });
+  }
+
+  void _removeList(int index) {
+    setState(() {
+      add.removeAt(index);
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     _appwriteService = AppwriteService();
-    _list = [];
+    _lists = [];
   }
 
   Future<void> _loadlist() async {
     try {
       final tasks = await _appwriteService.getLists();
       setState(() {
-        _list = tasks.map((e) => Addlist.fromDocument(e)).toList();
+        _lists = tasks.map((e) => Addlist.fromDocument(e)).toList();
       });
     } catch (e) {
       print("Title is empty");
@@ -41,12 +53,9 @@ class _ListExampleState extends State<ListExample> {
     final Title = titlecontroller.text;
     final List = listcontroller.text;
 
-    String date = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
-    String time = "${dateTime.hour}/${dateTime.minute}";
-
     if (Title.isNotEmpty && List.isNotEmpty) {
       try {
-        await _appwriteService.addText(Title, List, date, time);
+        await _appwriteService.addLists(Title, List);
         titlecontroller.clear();
         listcontroller.clear();
 
@@ -96,9 +105,14 @@ class _ListExampleState extends State<ListExample> {
               TextField(
                 controller: listcontroller,
                 decoration: InputDecoration(
-                    suffixIcon: Icon(
-                      Icons.add,
-                      color: Colors.green,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        netlist();
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.green,
+                      ),
                     ),
                     border: OutlineInputBorder(),
                     label: Text(
@@ -113,13 +127,25 @@ class _ListExampleState extends State<ListExample> {
               ),
               Expanded(
                   child: ListView.builder(
-                      itemCount: 3,
+                      itemCount: add.length,
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
-                            children: [Text('')],
+                            children: [
+                              Row(
+                                children: [
+                                  Text(add[index]),
+                                  Spacer(),
+                                  IconButton(
+                                      onPressed: () {
+                                        _removeList(index);
+                                      },
+                                      icon: Icon(Icons.cancel))
+                                ],
+                              )
+                            ],
                           ),
                         );
                       }))

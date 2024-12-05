@@ -1,5 +1,6 @@
 import 'package:echo_note/appwrite_model.dart';
 import 'package:echo_note/appwrite_service.dart';
+import 'package:echo_note/edit_text.dart';
 import 'package:flutter/material.dart';
 
 class TextScreen extends StatefulWidget {
@@ -61,7 +62,30 @@ class _TaskScreenState extends State<TextScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(texts.Title),
+                            Row(
+                              children: [
+                                Text(texts.Title),
+                                Spacer(),
+                                PopupMenuButton<String>(
+                                    onSelected: (value) {
+                                      if (value == 'Edit') {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditText()));
+                                      } else if (value == 'Delete') {}
+                                    },
+                                    itemBuilder: (context) => [
+                                          PopupMenuItem(
+                                              value: 'Edit',
+                                              child: Text("Edit")),
+                                          PopupMenuItem(
+                                              value: 'Delete',
+                                              child: Text("Delete")),
+                                        ])
+                              ],
+                            ),
                             Text(texts.Content),
                             Text(texts.Date),
                             Text(texts.Time),

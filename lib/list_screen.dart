@@ -10,29 +10,27 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-   late AppwriteService _appwriteService;
-  late List<Task> _task;
+  late AppwriteService _appwriteService;
+  late List<Addlist> _lists;
 
-  final DateTime dateTime = DateTime.now();
   @override
   void initState() {
     super.initState();
     _appwriteService = AppwriteService();
-    _task = [];
-    _loadtask();
+    _lists = [];
+    _loadlist();
   }
 
-  Future<void> _loadtask() async {
+  Future<void> _loadlist() async {
     try {
-      final tasks = await _appwriteService.getTasks();
+      final tasks = await _appwriteService.getLists();
       setState(() {
-        _task = tasks.map((e) => Task.fromDocument(e)).toList();
+        _lists = tasks.map((e) => Addlist.fromDocument(e)).toList();
       });
     } catch (e) {
       print("Title is empty");
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +45,9 @@ class _ListScreenState extends State<ListScreen> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 7,
                       mainAxisSpacing: 7),
-                  itemCount: _text.length,
+                  itemCount: _lists.length,
                   itemBuilder: (context, index) {
-                    final texts = _text[index];
+                    final texts = _lists[index];
                     return Container(
                       height: 30,
                       width: 70,
@@ -59,15 +57,12 @@ class _ListScreenState extends State<ListScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(texts.Title),
-                            Text(texts.Content),
-                            Text(texts.Date),
-                            Text(texts.Time),
-                          ],
-                        ),
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(texts.Title),
+                              Text(texts.List),
+                            ]),
                       ),
                     );
                   }),
