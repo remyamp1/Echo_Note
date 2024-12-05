@@ -68,8 +68,15 @@ class _TaskScreenState extends State<TaskScreen> {
                               ],
                             ),
                             Text(tasks.Description),
-                            Text(tasks.Date),
-                            Text(tasks.Time),
+                            Row(
+                              children: [
+                                Text(tasks.Date),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(tasks.Time),
+                              ],
+                            ),
                             Row(
                               children: [
                                 Text("Task ended"),
