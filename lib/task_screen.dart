@@ -34,6 +34,15 @@ class _TaskScreenState extends State<TaskScreen> {
     }
   }
 
+  Future<void> _deleteLists(String taskId) async {
+    try {
+      await _appwriteService.deleteLists(taskId);
+      _loadtask();
+    } catch (e) {
+      print("Error  deleting task:$e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,15 +77,8 @@ class _TaskScreenState extends State<TaskScreen> {
                               ],
                             ),
                             Text(tasks.Description),
-                            Row(
-                              children: [
-                                Text(tasks.Date),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(tasks.Time),
-                              ],
-                            ),
+                            Text(tasks.Date),
+                            Text(tasks.Time),
                             Row(
                               children: [
                                 Text("Task ended"),
@@ -87,9 +89,14 @@ class _TaskScreenState extends State<TaskScreen> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditTask()));
-                                      } else if (value == 'Delete') {}
+                                                builder: (context) => EditTask(
+                                                      Title: tasks.Title,
+                                                      Description:
+                                                          tasks.Description,
+                                                    )));
+                                      } else if (value == 'Delete') {
+                                        _deleteLists(tasks.id);
+                                      }
                                     },
                                     itemBuilder: (context) => [
                                           PopupMenuItem(

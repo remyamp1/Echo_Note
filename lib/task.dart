@@ -39,8 +39,8 @@ class _TaskExampleState extends State<TaskExample> {
     final Title = titlecontroller.text;
     final Description = descriptioncontroller.text;
 
-    String date = "${dateTime.day}/${dateTime.month}/${dateTime.year}";
-    String time = "${dateTime.hour}/${dateTime.minute}";
+    String date = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+    String time = "${dateTime.hour}:${dateTime.minute}";
 
     if (Title.isNotEmpty && Description.isNotEmpty) {
       try {

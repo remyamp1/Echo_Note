@@ -16,7 +16,7 @@ class _EditListState extends State<EditList> {
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(
-          "Edit Note",
+          "Edit List",
           style: TextStyle(color: Colors.white),
         ),
         actions: [

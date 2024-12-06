@@ -16,7 +16,7 @@ class _ListExampleState extends State<ListExample> {
   TextEditingController listcontroller = TextEditingController();
   late List<String> add = [];
 
-  void netlist() {
+  void newlist() {
     setState(() {
       if (listcontroller.text.isNotEmpty) {
         add.add(listcontroller.text);
@@ -107,7 +107,7 @@ class _ListExampleState extends State<ListExample> {
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () {
-                        netlist();
+                        newlist();
                       },
                       icon: Icon(
                         Icons.add,

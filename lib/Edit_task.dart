@@ -1,28 +1,65 @@
+import 'package:echo_note/appwrite_model.dart';
+import 'package:echo_note/appwrite_service.dart';
 import 'package:flutter/material.dart';
 
 class EditTask extends StatefulWidget {
-  const EditTask({super.key});
+  final String Title;
+  final String Description;
 
+  const EditTask({
+    super.key,
+    required this.Title,
+    required this.Description,
+  });
   @override
   State<EditTask> createState() => _EditTaskState();
 }
 
 class _EditTaskState extends State<EditTask> {
+  late AppwriteService _appwriteService;
+  late List<Task> _task;
+
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController descriptioncontroller = TextEditingController();
   final DateTime dateTime = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _appwriteService = AppwriteService();
+    _task = [];
+  }
+
+  Future<void> _addtask() async {
+    final Title = titlecontroller.text;
+    final Description = descriptioncontroller.text;
+
+    String date = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+    String time = "${dateTime.hour}:${dateTime.minute}";
+
+    if (Title.isNotEmpty && Description.isNotEmpty) {
+      try {
+        await _appwriteService.addTask(Title, Description, date, time);
+        titlecontroller.clear();
+        descriptioncontroller.clear();
+      } catch (e) {
+        print("Error adding task:$e");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text(
-          "Edit Note",
+          "Edit Task",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: _addtask,
               icon: Icon(
                 Icons.check,
                 color: Colors.white,
