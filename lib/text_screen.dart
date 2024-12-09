@@ -72,8 +72,10 @@ class _TaskScreenState extends State<TextScreen> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditText()));
+                                                builder: (context) => EditText(
+                                                    id: texts.id,
+                                                    Title: texts.Title,
+                                                    Content: texts.Content)));
                                       } else if (value == 'Delete') {}
                                     },
                                     itemBuilder: (context) => [

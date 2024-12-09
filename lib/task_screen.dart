@@ -90,6 +90,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) => EditTask(
+                                                      id: tasks.id,
                                                       Title: tasks.Title,
                                                       Description:
                                                           tasks.Description,

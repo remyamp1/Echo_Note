@@ -3,11 +3,13 @@ import 'package:echo_note/appwrite_service.dart';
 import 'package:flutter/material.dart';
 
 class EditTask extends StatefulWidget {
+  final String id;
   final String Title;
   final String Description;
 
   const EditTask({
     super.key,
+    required this.id,
     required this.Title,
     required this.Description,
   });
